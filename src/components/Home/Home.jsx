@@ -268,6 +268,7 @@ const Home = () => {
                                     changeDescription={changeDescription}
                                     title={title}
                                     description={description}
+                                    checkRole={checkRole}
                                 />
                             </Col>
                         </Row>

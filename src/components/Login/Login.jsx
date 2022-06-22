@@ -1,10 +1,7 @@
-import React, { useContext } from 'react';
-
+import React, { useContext, useState, useEffect } from 'react';
 import { Form, Input, Button, Row, Col } from 'antd';
-import { Layout } from 'antd';
-
+import { Layout, Spin } from 'antd';
 import { AuthContext } from '../store/auth-context';
-
 import styles from './Login.module.css';
 import { containsWhitespace } from '../../utils/string.utils'
 import { openNotification } from '../../utils/notice.utils'
@@ -13,6 +10,13 @@ const { Content } = Layout;
 
 const Login = () => {
     const context = useContext(AuthContext)
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false);
+        }, 1200);
+    }, []);
 
     const onFinish = ({ username, password }) => {
         if (containsWhitespace(username) && containsWhitespace(password)) {
@@ -29,7 +33,14 @@ const Login = () => {
 
     return (
         <>
-            <Layout className={styles.layout}>
+            {loading ? (
+                <Spin
+                    size="large"
+                    className={styles.spin}
+                    tip="Loading..."
+                    spinning={loading}
+                />
+            ) : (<Layout className={styles.layout}>
                 <Content>
                     <Row>
                         <Col span={8}></Col>
@@ -93,7 +104,7 @@ const Login = () => {
                         <Col span={8}></Col>
                     </Row>
                 </Content>
-            </Layout>
+            </Layout>)}
         </>
     );
 };

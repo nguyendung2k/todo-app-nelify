@@ -6,7 +6,7 @@ import ButtonAddTodo from "../Button/ButtonAddTodo";
 
 import { Row, Col, Skeleton, Button } from 'antd'
 
-const Todo = ({ datas, columns, onClick, rowSelection, deleteTodosRow, selectedRowKeys, hasSelected, changeTitle, changeDescription, title, description }) => {
+const Todo = ({ datas, columns, onClick, rowSelection, deleteTodosRow, selectedRowKeys, hasSelected, changeTitle, changeDescription, title, description, checkRole }) => {
     let dataSearch
 
     const [loading, setLoading] = useState(true)
@@ -16,10 +16,6 @@ const Todo = ({ datas, columns, onClick, rowSelection, deleteTodosRow, selectedR
             setLoading(false)
         }, 1200);
     }, [])
-
-
-
-
 
     {
         description === null || title === null ? dataSearch = [...datas] : (dataSearch = datas.filter((data) => data.title.toUpperCase().indexOf(title.toUpperCase()) !== -1 || data.description.toUpperCase().indexOf(description.toUpperCase()) !== -1))
@@ -37,12 +33,12 @@ const Todo = ({ datas, columns, onClick, rowSelection, deleteTodosRow, selectedR
                 </Col>
             </Row>
             <Row>
-                <Button style={{ width: '92px' }} type="danger"
+                {checkRole === '1' ? (<Button style={{ width: '92px' }} type="danger"
                     onClick={() => deleteTodosRow(selectedRowKeys)
                     }
                     disabled={!hasSelected}>
                     DELETE
-                </Button>
+                </Button>) : []}
                 <Skeleton style={{ marginTop: '10px' }} active loading={loading}>
                     <TableTodo columns={columns} datas={dataSearch}
                         rowSelection={rowSelection} />

@@ -1,6 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import { ACCOUNTS } from './constant'
-import { containsWhitespace } from '../../utils/string.utils'
 import { openNotification } from '../../utils/notice.utils'
 
 const AuthContext = createContext();
@@ -20,7 +19,6 @@ const AuthContextProvider = ({ children }) => {
             localStorage.setItem('ROLE', acc.role)
             setIsLoggedIn(true)
         } else {
-            // console.log('222')
             openNotification('error', 'Thông tin tài khoản và mật khẩu không chính xác!!!');
         }
     }
@@ -35,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
             isLoggedIn: isLoggedIn,
             onLogOut: logOutHandler,
             onLogIn: logInHandler,
-            // role: checkRole,
         }}>
             {children}
         </AuthContext.Provider>
