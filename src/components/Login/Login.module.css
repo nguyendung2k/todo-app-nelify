@@ -1,0 +1,55 @@
+.layout{
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    height: 100vh;
+    overflow: hidden;
+}
+
+.layout__header{
+    text-align:center;
+    background-color: #fff;
+    color: black;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 500px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 10px 10px 15px rgb(0 0 0 / 5%);
+    padding: 20px 10px;
+    box-sizing: border-box;
+}
+.h1 {
+    text-align: center;
+    padding-bottom: 28px;
+    border-bottom: 1px solid silver;
+    font-weight: bold;
+    font-size:28px;
+}
+
+.btn{
+    margin-right: 20px;
+    width: 100px;
+    float: right;
+    margin-top: 15px;
+}
+
+.input{
+    margin-left:4px;
+    width:350px;
+}
+.input__username {
+    width: 350px;
+}
+.form__item{
+    margin: 25px;
+}
+
+
+

@@ -1,0 +1,59 @@
+.layout {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.btn__login {  
+    margin-top: 20px;
+}
+
+.search{
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 5px;
+}
+
+.btn__edit {
+    margin-right: 10px;
+    width: 70px;
+}
+
+.btn__delete{
+    width: 70px;
+    margin-top: 10px;
+}
+
+.modal{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.table{
+    max-width: 900px;
+    min-height: 100vh;
+    margin-top: 20px;
+}
+
+.des{
+    margin-top:10px;
+}
+
+.card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+    text-align: center;
+    height: 100px;
+}
+
+.spin {
+    margin: 0 auto;
+    padding-top: 300px;
+    text-align: center;
+    background: linear-gradient(120deg, #2980b9, #8e44ad);
+    border-radius: 4px;
+
+    width: 100vw;
+    height: 100vh;
+}
