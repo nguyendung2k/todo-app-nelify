@@ -1,20 +1,18 @@
 import React from "react";
-import { Input, AutoComplete } from "antd"
-import styles from "./SearchTodo.module.css"
+import { Input, AutoComplete } from "antd";
+import styles from "./SearchTodo.module.css";
 
-const SearchTodo = ({ changeTitle, changeDescription }) => {
+const SearchTodo = ({ changeTitleAndDescription }) => {
     return (
         <AutoComplete
             className={styles.search}
             onSearch={(value) => {
-                changeTitle(value)
-                changeDescription(value)
-            }
-            }>
-            <Input.Search
-                size="normal" enterButton />
-        </AutoComplete >
-    )
-}
+                changeTitleAndDescription(value);
+            }}
+        >
+            <Input.Search placeholder="Search..." size="normal" enterButton />
+        </AutoComplete>
+    );
+};
 
-export default SearchTodo
+export default SearchTodo;

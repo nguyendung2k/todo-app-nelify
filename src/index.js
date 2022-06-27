@@ -1,12 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { AuthContextProvider } from './components/store/auth-context';
-
-// import './sass/index.scss'
 import 'antd/dist/antd.min.css';
-
 import Layout from './components/Layout/Layout'
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

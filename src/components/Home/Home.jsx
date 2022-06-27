@@ -6,16 +6,24 @@ import ModalEditTodo from "../Modals/ModalEditTodo";
 import Todo from "./Todo";
 import { Col, Row, Button, Layout, Modal, Spin } from "antd";
 import { openNotification } from "../../utils/notice.utils";
-
 import styles from "./Home.module.css";
-
 import { AuthContext } from "../store/auth-context";
 
 const { Content } = Layout;
-const datas = [];
+const results = [];
 const TODO_APP_STORAGE_KEY = "TODO_APP";
+const DATE_FORMAT = "DD-MM-YYYY";
 
 const Home = () => {
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [listTodo, setListTodo] = useState(results);
+    const [editTodo, setEditTodo] = useState(null);
+    const [isModalEdit, setIsModalEdit] = useState(false);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [changeValueSearch, setChangeValueSearch] = useState(null);
+    const contextLogout = useContext(AuthContext);
+
     const checkRole = localStorage.getItem("ROLE");
 
     const columns = [
@@ -29,13 +37,13 @@ const Home = () => {
             title: "Description",
             dataIndex: "description",
             key: "des",
-            width: 450,
+            width: 270,
         },
         {
             title: "Date",
             dataIndex: "date",
             key: "date",
-            width: 150,
+            width: 200,
         },
         {
             title: "Action",
@@ -76,11 +84,7 @@ const Home = () => {
         },
     ];
 
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const hasSelected = selectedRowKeys.length > 0;
-
     const onSelectChange = (key) => {
-        // console.log(key)
         setSelectedRowKeys(key);
     };
 
@@ -89,26 +93,10 @@ const Home = () => {
         onChange: onSelectChange,
     };
 
-    const contextLogout = useContext(AuthContext);
-
-    const [loading, setLoading] = useState(true);
-
-    const [listTodos, setListTodos] = useState(datas);
-
-    const [editTodo, setEditTodo] = useState(null);
-
-    const [isModalEdit, setIsModalEdit] = useState(false);
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const [title, setTitle] = useState(null);
-
-    const [description, setDescription] = useState(null);
-
     useEffect(() => {
-        const storagedTodoList = localStorage.getItem(TODO_APP_STORAGE_KEY);
-        if (storagedTodoList) {
-            setListTodos(JSON.parse(storagedTodoList));
+        const storageTodoList = localStorage.getItem(TODO_APP_STORAGE_KEY);
+        if (storageTodoList) {
+            setListTodo(JSON.parse(storageTodoList));
         }
     }, []);
 
@@ -134,13 +122,8 @@ const Home = () => {
         setIsModalVisible(false);
     };
 
-    const changeTitle = (title) => {
-        setTitle(title);
-        setSelectedRowKeys([]);
-    };
-
-    const changeDescription = (description) => {
-        setDescription(description);
+    const changeTitleAndDescription = (changeValueSearch) => {
+        setChangeValueSearch(changeValueSearch);
         setSelectedRowKeys([]);
     };
 
@@ -160,17 +143,15 @@ const Home = () => {
 
     const handleSubmitForm = (data) => {
         const dateTime = new Date(Date.now()).toString();
-
-        data.date = moment(dateTime).format("DD-MM-YYYY");
+        data.date = moment(dateTime).format(DATE_FORMAT);
         data.key = Math.random().toString();
-
-        setListTodos((prevList) => {
+        setListTodo((prevList) => {
             const newData = [data, ...prevList];
             localStorage.setItem(TODO_APP_STORAGE_KEY, JSON.stringify(newData));
             return newData;
         });
         setIsModalVisible(false);
-        openNotification("success", "Thêm Todo thành công!");
+        openNotification("success", "ADD-TODO SUCCESSFUL!");
     };
 
     const handleEditTodo = (record) => {
@@ -179,7 +160,7 @@ const Home = () => {
     };
 
     const handleUpdateTodo = () => {
-        setListTodos((data) => {
+        setListTodo((data) => {
             const updateTodo = data.map((todo) => {
                 if (todo.key === editTodo.key) {
                     return editTodo;
@@ -193,15 +174,14 @@ const Home = () => {
             );
             return updateTodo;
         });
-        openNotification("success", "UPDATE Thành công");
+        openNotification("success", "UPDATE SUCCESSFUL!");
     };
 
     const handleDeleteTodo = (deleteKey) => {
-        // console.log(key);
         Modal.confirm({
             title: "Confirm Delete!",
             onOk: () => {
-                setListTodos((prevList) => {
+                setListTodo((prevList) => {
                     const deleteData = prevList.filter(
                         (item) => item.key !== deleteKey
                     );
@@ -214,28 +194,26 @@ const Home = () => {
                 setSelectedRowKeys((prev) => {
                     return prev.filter((key) => key !== deleteKey);
                 });
-                openNotification("warning", "DELETE Thành công!");
+                openNotification("warning", "DELETE SUCCESSFUL!");
             },
         });
     };
 
     const handleDeleteRow = (keys) => {
-        console.log(selectedRowKeys);
         Modal.confirm({
             title: "Confirm Delete!",
             onOk: () => {
-                setListTodos((prevList) => {
-                    const deleteDatas = prevList.filter(
+                setListTodo((prevList) => {
+                    const deleteData = prevList.filter(
                         (data) => !keys.includes(data.key)
                     );
-                    console.log(deleteDatas);
                     localStorage.setItem(
                         TODO_APP_STORAGE_KEY,
-                        JSON.stringify(deleteDatas)
+                        JSON.stringify(deleteData)
                     );
-                    return deleteDatas;
+                    return deleteData;
                 });
-                openNotification("warning", "DELETE Thành công!");
+                openNotification("warning", "DELETE SUCCESSFUL!");
                 setSelectedRowKeys([]);
             },
         });
@@ -258,16 +236,16 @@ const Home = () => {
                             <Col span={12} offset={6}>
                                 <Todo
                                     columns={columns}
-                                    datas={listTodos}
+                                    results={listTodo}
                                     onClick={showModal}
                                     rowSelection={rowSelection}
-                                    deleteTodosRow={handleDeleteRow}
+                                    deleteTodoRow={handleDeleteRow}
                                     selectedRowKeys={selectedRowKeys}
-                                    hasSelected={hasSelected}
-                                    changeTitle={changeTitle}
-                                    changeDescription={changeDescription}
-                                    title={title}
-                                    description={description}
+                                    hasSelected={selectedRowKeys.length > 0}
+                                    changeTitleAndDescription={
+                                        changeTitleAndDescription
+                                    }
+                                    changeValueSearch={changeValueSearch}
                                     checkRole={checkRole}
                                 />
                             </Col>
@@ -300,4 +278,5 @@ const Home = () => {
         </>
     );
 };
+
 export default Home;

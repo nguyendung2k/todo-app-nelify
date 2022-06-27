@@ -1,22 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Form, Input, Button } from 'antd'
-import styles from "./ModalEditTodo.module.css"
+import React, { useEffect } from "react";
+import { Modal, Form, Input, Button } from "antd";
+import styles from "./ModalEditTodo.module.css";
 
 const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
     const [form] = Form.useForm();
-    const [, forceUpdate] = useState({})
 
     const handleEditTitle = (e) => {
-        setEditTodo(pre => {
-            return { ...pre, title: e.target.value }
-        })
-    }
+        setEditTodo((pre) => {
+            return { ...pre, title: e.target.value };
+        });
+    };
 
     const handleEditDescription = (e) => {
-        setEditTodo(pre => {
-            return { ...pre, description: e.target.value }
-        })
-    }
+        setEditTodo((pre) => {
+            return { ...pre, description: e.target.value };
+        });
+    };
 
     useEffect(() => {
         form.setFieldsValue({
@@ -30,10 +29,6 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
         });
     });
 
-    useEffect(() => {
-        forceUpdate({});
-    }, []);
-
     return (
         <Modal
             key={Math.random.toString()}
@@ -41,7 +36,7 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
             visible={visible}
             onCancel={okCancel}
             footer={null}
-            title="Edit Todo"
+            title="EDIT-TODO"
         >
             <Form
                 labelCol={{
@@ -56,12 +51,11 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your title',
+                            message: "Please input your title",
                         },
                     ]}
                 >
-                    <Input
-                        onChange={handleEditTitle} />
+                    <Input onChange={handleEditTitle} />
                 </Form.Item>
                 <Form.Item
                     label="Description"
@@ -69,12 +63,14 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your description',
+                            message: "Please input your description",
                         },
                     ]}
                 >
-                    <Input.TextArea style={{ 'resize': 'none' }}
-                        onChange={handleEditDescription} />
+                    <Input.TextArea
+                        style={{ resize: "none" }}
+                        onChange={handleEditDescription}
+                    />
                 </Form.Item>
                 <Form.Item
                     wrapperCol={{
@@ -89,15 +85,13 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                     >
                         OK
                     </Button>
-                    <Button htmlType="button"
-                        onClick={okCancel}
-                    >
+                    <Button htmlType="button" onClick={okCancel}>
                         CANCEL
                     </Button>
                 </Form.Item>
             </Form>
         </Modal>
-    )
-}
+    );
+};
 
-export default ModalEditTodo
+export default ModalEditTodo;

@@ -19,7 +19,7 @@ const AuthContextProvider = ({ children }) => {
             localStorage.setItem('ROLE', acc.role)
             setIsLoggedIn(true)
         } else {
-            openNotification('error', 'Thông tin tài khoản và mật khẩu không chính xác!!!');
+            openNotification('error', 'Account and password not correct!');
         }
     }
 
@@ -38,4 +38,5 @@ const AuthContextProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 }
+
 export { AuthContext, AuthContextProvider }
