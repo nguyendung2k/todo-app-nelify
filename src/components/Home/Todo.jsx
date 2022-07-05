@@ -1,10 +1,10 @@
 /* eslint-disable no-lone-blocks */
-import React, { useState, useEffect } from "react";
-import SearchTodo from "./SearchTodo";
-import TableTodo from "./TableTodo";
-import ButtonAddTodo from "../Button/ButtonAddTodo";
-import { Row, Col, Skeleton, Button } from "antd";
-import styles from "./Todo.module.css";
+import React, { useState, useEffect } from 'react'
+import SearchTodo from './SearchTodo'
+import TableTodo from './TableTodo'
+import ButtonAddTodo from '../Button/ButtonAddTodo'
+import { Row, Col, Skeleton, Button } from 'antd'
+import styles from './Todo.module.css'
 
 const Todo = ({
     results,
@@ -18,15 +18,15 @@ const Todo = ({
     changeValueSearch,
     checkRole,
 }) => {
-    let dataSearch;
+    let dataSearch
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false);
-        }, 1200);
-    }, []);
+            setLoading(false)
+        }, 1200)
+    }, [])
 
     {
         changeValueSearch === null
@@ -39,7 +39,7 @@ const Todo = ({
                       data.description
                           .toLowerCase()
                           .indexOf(changeValueSearch.toLowerCase()) !== -1
-              ));
+              ))
     }
 
     return (
@@ -55,9 +55,9 @@ const Todo = ({
                 </Col>
             </Row>
             <Row>
-                {checkRole === "1" ? (
+                {checkRole === '1' ? (
                     <Button
-                        style={{ width: "92px" }}
+                        style={{ width: '92px' }}
                         type="danger"
                         onClick={() => deleteTodoRow(selectedRowKeys)}
                         disabled={!hasSelected}
@@ -76,7 +76,7 @@ const Todo = ({
                 </Skeleton>
             </Row>
         </>
-    );
-};
+    )
+}
 
-export default Todo;
+export default Todo

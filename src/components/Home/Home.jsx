@@ -1,58 +1,58 @@
-import React, { useState, useContext, useEffect } from "react";
-import moment from "moment";
-import HeaderComponent from "../Header/Header";
-import ModalAddTodoComponent from "../Modals/ModalAddTodo";
-import ModalEditTodo from "../Modals/ModalEditTodo";
-import Todo from "./Todo";
-import { Col, Row, Button, Layout, Modal, Spin } from "antd";
-import { openNotification } from "../../utils/notice.utils";
-import styles from "./Home.module.css";
-import { AuthContext } from "../store/auth-context";
+import React, { useState, useContext, useEffect } from 'react'
+import moment from 'moment'
+import HeaderComponent from '../Header/Header'
+import ModalAddTodoComponent from '../Modals/ModalAddTodo'
+import ModalEditTodo from '../Modals/ModalEditTodo'
+import Todo from './Todo'
+import { Col, Row, Button, Layout, Modal, Spin } from 'antd'
+import { openNotification } from '../../utils/notice.utils'
+import styles from './Home.module.css'
+import { AuthContext } from '../store/auth-context'
 
-const { Content } = Layout;
-const results = [];
-const TODO_APP_STORAGE_KEY = "TODO_APP";
-const DATE_FORMAT = "DD-MM-YYYY";
+const { Content } = Layout
+const results = []
+const TODO_APP_STORAGE_KEY = 'TODO_APP'
+const DATE_FORMAT = 'DD-MM-YYYY'
 
 const Home = () => {
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [listTodo, setListTodo] = useState(results);
-    const [editTodo, setEditTodo] = useState(null);
-    const [isModalEdit, setIsModalEdit] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(false);
-    const [changeValueSearch, setChangeValueSearch] = useState(null);
-    const contextLogout = useContext(AuthContext);
+    const [selectedRowKeys, setSelectedRowKeys] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [listTodo, setListTodo] = useState(results)
+    const [editTodo, setEditTodo] = useState(null)
+    const [isModalEdit, setIsModalEdit] = useState(false)
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [changeValueSearch, setChangeValueSearch] = useState(null)
+    const contextLogout = useContext(AuthContext)
 
-    const checkRole = localStorage.getItem("ROLE");
+    const checkRole = localStorage.getItem('ROLE')
 
     const columns = [
         {
-            title: "Title",
-            dataIndex: "title",
-            key: "title",
+            title: 'Title',
+            dataIndex: 'title',
+            key: 'title',
             width: 150,
         },
         {
-            title: "Description",
-            dataIndex: "description",
-            key: "des",
+            title: 'Description',
+            dataIndex: 'description',
+            key: 'des',
             width: 270,
         },
         {
-            title: "Date",
-            dataIndex: "date",
-            key: "date",
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
             width: 200,
         },
         {
-            title: "Action",
+            title: 'Action',
             width: 100,
-            key: "action",
+            key: 'action',
             render: (record) => {
                 return (
                     <div className={styles.btn__all}>
-                        {checkRole === "1" ? (
+                        {checkRole === '1' ? (
                             <Button
                                 type="primary"
                                 className={styles.btn__edit}
@@ -65,7 +65,7 @@ const Home = () => {
                                 Edit
                             </Button>
                         )}
-                        {checkRole === "1" ? (
+                        {checkRole === '1' ? (
                             <Button
                                 className={styles.btn__delete}
                                 danger
@@ -79,145 +79,145 @@ const Home = () => {
                             </Button>
                         )}
                     </div>
-                );
+                )
             },
         },
-    ];
+    ]
 
     const onSelectChange = (key) => {
-        setSelectedRowKeys(key);
-    };
+        setSelectedRowKeys(key)
+    }
 
     const rowSelection = {
         selectedRowKeys,
         onChange: onSelectChange,
-    };
+    }
 
     useEffect(() => {
-        const storageTodoList = localStorage.getItem(TODO_APP_STORAGE_KEY);
+        const storageTodoList = localStorage.getItem(TODO_APP_STORAGE_KEY)
         if (storageTodoList) {
-            setListTodo(JSON.parse(storageTodoList));
+            setListTodo(JSON.parse(storageTodoList))
         }
-    }, []);
+    }, [])
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false);
-        }, 1200);
-    }, []);
+            setLoading(false)
+        }, 1200)
+    }, [])
 
     const showModal = () => {
-        setIsModalVisible(true);
-    };
+        setIsModalVisible(true)
+    }
 
     const showModalEdit = () => {
-        setIsModalEdit(true);
-    };
+        setIsModalEdit(true)
+    }
 
     const hideModalEdit = () => {
-        setIsModalEdit(false);
-    };
+        setIsModalEdit(false)
+    }
 
     const handleCancel = () => {
-        setIsModalVisible(false);
-    };
+        setIsModalVisible(false)
+    }
 
     const changeTitleAndDescription = (changeValueSearch) => {
-        setChangeValueSearch(changeValueSearch);
-        setSelectedRowKeys([]);
-    };
+        setChangeValueSearch(changeValueSearch)
+        setSelectedRowKeys([])
+    }
 
     const handleCancelEditForm = () => {
-        setIsModalEdit(false);
-        setEditTodo(null);
-    };
+        setIsModalEdit(false)
+        setEditTodo(null)
+    }
 
     const onLogout = (values) => {
         Modal.confirm({
-            title: "Confirm Logout!",
+            title: 'Confirm Logout!',
             onOk: () => {
-                contextLogout.onLogOut(values);
+                contextLogout.onLogOut(values)
             },
-        });
-    };
+        })
+    }
 
     const handleSubmitForm = (data) => {
-        const dateTime = new Date(Date.now()).toString();
-        data.date = moment(dateTime).format(DATE_FORMAT);
-        data.key = Math.random().toString();
+        const dateTime = new Date(Date.now()).toString()
+        data.date = moment(dateTime).format(DATE_FORMAT)
+        data.key = Math.random().toString()
         setListTodo((prevList) => {
-            const newData = [data, ...prevList];
-            localStorage.setItem(TODO_APP_STORAGE_KEY, JSON.stringify(newData));
-            return newData;
-        });
-        setIsModalVisible(false);
-        openNotification("success", "ADD-TODO SUCCESSFUL!");
-    };
+            const newData = [data, ...prevList]
+            localStorage.setItem(TODO_APP_STORAGE_KEY, JSON.stringify(newData))
+            return newData
+        })
+        setIsModalVisible(false)
+        openNotification('success', 'ADD-TODO SUCCESSFUL!')
+    }
 
     const handleEditTodo = (record) => {
-        showModalEdit(true);
-        setEditTodo(record);
-    };
+        showModalEdit(true)
+        setEditTodo(record)
+    }
 
     const handleUpdateTodo = () => {
         setListTodo((data) => {
             const updateTodo = data.map((todo) => {
                 if (todo.key === editTodo.key) {
-                    return editTodo;
+                    return editTodo
                 } else {
-                    return todo;
+                    return todo
                 }
-            });
+            })
             localStorage.setItem(
                 TODO_APP_STORAGE_KEY,
                 JSON.stringify(updateTodo)
-            );
-            return updateTodo;
-        });
-        openNotification("success", "UPDATE SUCCESSFUL!");
-    };
+            )
+            return updateTodo
+        })
+        openNotification('success', 'UPDATE SUCCESSFUL!')
+    }
 
     const handleDeleteTodo = (deleteKey) => {
         Modal.confirm({
-            title: "Confirm Delete!",
+            title: 'Confirm Delete!',
             onOk: () => {
                 setListTodo((prevList) => {
                     const deleteData = prevList.filter(
                         (item) => item.key !== deleteKey
-                    );
+                    )
                     localStorage.setItem(
                         TODO_APP_STORAGE_KEY,
                         JSON.stringify(deleteData)
-                    );
-                    return deleteData;
-                });
+                    )
+                    return deleteData
+                })
                 setSelectedRowKeys((prev) => {
-                    return prev.filter((key) => key !== deleteKey);
-                });
-                openNotification("warning", "DELETE SUCCESSFUL!");
+                    return prev.filter((key) => key !== deleteKey)
+                })
+                openNotification('warning', 'DELETE SUCCESSFUL!')
             },
-        });
-    };
+        })
+    }
 
     const handleDeleteRow = (keys) => {
         Modal.confirm({
-            title: "Confirm Delete!",
+            title: 'Confirm Delete!',
             onOk: () => {
                 setListTodo((prevList) => {
                     const deleteData = prevList.filter(
                         (data) => !keys.includes(data.key)
-                    );
+                    )
                     localStorage.setItem(
                         TODO_APP_STORAGE_KEY,
                         JSON.stringify(deleteData)
-                    );
-                    return deleteData;
-                });
-                openNotification("warning", "DELETE SUCCESSFUL!");
-                setSelectedRowKeys([]);
+                    )
+                    return deleteData
+                })
+                openNotification('warning', 'DELETE SUCCESSFUL!')
+                setSelectedRowKeys([])
             },
-        });
-    };
+        })
+    }
 
     return (
         <>
@@ -267,16 +267,16 @@ const Home = () => {
                     visible={isModalEdit}
                     okCancel={handleCancelEditForm}
                     onOk={() => {
-                        handleEditTodo();
-                        handleUpdateTodo();
-                        hideModalEdit();
+                        handleEditTodo()
+                        handleUpdateTodo()
+                        hideModalEdit()
                     }}
                     editTodo={editTodo}
                     setEditTodo={setEditTodo}
                 />
             )}
         </>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home

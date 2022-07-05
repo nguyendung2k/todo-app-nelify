@@ -1,12 +1,12 @@
-import React from "react";
-import { Modal, Form, Input, Button } from "antd";
-import styles from "./ModalAddTodo.module.css";
+import React from 'react'
+import { Modal, Form, Input, Button } from 'antd'
+import styles from './ModalAddTodo.module.css'
 
 const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm()
     const handleResetForm = () => {
-        form.resetFields();
-    };
+        form.resetFields()
+    }
 
     return (
         <Modal
@@ -31,14 +31,14 @@ const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your title",
+                            message: 'Please input your title',
                         },
                     ]}
                 >
                     <Input
                         placeholder="Max length is 50"
                         maxLength={50}
-                        style={{ resize: "none" }}
+                        style={{ resize: 'none' }}
                     />
                 </Form.Item>
                 <Form.Item
@@ -47,14 +47,14 @@ const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your description",
+                            message: 'Please input your description',
                         },
                     ]}
                 >
                     <Input.TextArea
                         placeholder="Max length is 200"
                         maxLength={200}
-                        style={{ resize: "none" }}
+                        style={{ resize: 'none' }}
                     />
                 </Form.Item>
                 <Form.Item
@@ -76,7 +76,7 @@ const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
                 </Form.Item>
             </Form>
         </Modal>
-    );
-};
+    )
+}
 
-export default ModalAddTodoComponent;
+export default ModalAddTodoComponent

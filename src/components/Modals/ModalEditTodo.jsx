@@ -1,33 +1,33 @@
-import React, { useEffect } from "react";
-import { Modal, Form, Input, Button } from "antd";
-import styles from "./ModalEditTodo.module.css";
+import React, { useEffect } from 'react'
+import { Modal, Form, Input, Button } from 'antd'
+import styles from './ModalEditTodo.module.css'
 
 const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
-    const [form] = Form.useForm();
+    const [form] = Form.useForm()
 
     const handleEditTitle = (e) => {
         setEditTodo((pre) => {
-            return { ...pre, title: e.target.value };
-        });
-    };
+            return { ...pre, title: e.target.value }
+        })
+    }
 
     const handleEditDescription = (e) => {
         setEditTodo((pre) => {
-            return { ...pre, description: e.target.value };
-        });
-    };
+            return { ...pre, description: e.target.value }
+        })
+    }
 
     useEffect(() => {
         form.setFieldsValue({
             title: editTodo.title,
-        });
-    });
+        })
+    })
 
     useEffect(() => {
         form.setFieldsValue({
             description: editTodo.description,
-        });
-    });
+        })
+    })
 
     return (
         <Modal
@@ -51,7 +51,7 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your title",
+                            message: 'Please input your title',
                         },
                     ]}
                 >
@@ -63,12 +63,12 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                     rules={[
                         {
                             required: true,
-                            message: "Please input your description",
+                            message: 'Please input your description',
                         },
                     ]}
                 >
                     <Input.TextArea
-                        style={{ resize: "none" }}
+                        style={{ resize: 'none' }}
                         onChange={handleEditDescription}
                     />
                 </Form.Item>
@@ -91,7 +91,7 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
                 </Form.Item>
             </Form>
         </Modal>
-    );
-};
+    )
+}
 
-export default ModalEditTodo;
+export default ModalEditTodo

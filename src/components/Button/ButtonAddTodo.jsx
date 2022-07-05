@@ -1,15 +1,15 @@
-import React from "react";
-import { Button } from "antd";
-import styles from "./ButtonAddTodo.module.css";
+import React from 'react'
+import { Button } from 'antd'
+import styles from './ButtonAddTodo.module.css'
 
 const ButtonAddTodo = ({ onClick }) => {
-    const checkRole = localStorage.getItem("ROLE");
+    const checkRole = localStorage.getItem('ROLE')
 
     return (
         <>
-            {checkRole === "1" && (
+            {checkRole === '1' && (
                 <Button
-                    className={styles["btn__add-todo"]}
+                    className={styles['btn__add-todo']}
                     type="primary"
                     onClick={onClick}
                 >
@@ -17,7 +17,7 @@ const ButtonAddTodo = ({ onClick }) => {
                 </Button>
             )}
         </>
-    );
-};
+    )
+}
 
-export default ButtonAddTodo;
+export default ButtonAddTodo

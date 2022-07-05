@@ -1,3 +1,3 @@
 export const containsWhitespace = (str) => {
-    return /\s/.test(str);
+    return /\s/.test(str)
 }

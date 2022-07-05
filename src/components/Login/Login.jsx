@@ -1,39 +1,39 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Form, Input, Button, Row, Col } from "antd";
-import { Layout, Spin } from "antd";
-import { AuthContext } from "../store/auth-context";
-import styles from "./Login.module.css";
-import { containsWhitespace } from "../../utils/string.utils";
-import { openNotification } from "../../utils/notice.utils";
+import React, { useContext, useState, useEffect } from 'react'
+import { Form, Input, Button, Row, Col } from 'antd'
+import { Layout, Spin } from 'antd'
+import { AuthContext } from '../store/auth-context'
+import styles from './Login.module.css'
+import { containsWhitespace } from '../../utils/string.utils'
+import { openNotification } from '../../utils/notice.utils'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 const Login = () => {
-    const context = useContext(AuthContext);
-    const [loading, setLoading] = useState(true);
+    const context = useContext(AuthContext)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         setTimeout(() => {
-            setLoading(false);
-        }, 1200);
-    }, []);
+            setLoading(false)
+        }, 1200)
+    }, [])
 
     const onFinish = ({ username, password }) => {
         if (containsWhitespace(username) && containsWhitespace(password)) {
             openNotification(
-                "warning",
-                "Username & Password must not contain spaces!!!"
-            );
+                'warning',
+                'Username & Password must not contain spaces!!!'
+            )
         }
-        context.onLogIn(username, password);
-    };
+        context.onLogIn(username, password)
+    }
 
     const tailLayout = {
         wrapperCol: {
             offset: 8,
             span: 16,
         },
-    };
+    }
 
     return (
         <>
@@ -66,13 +66,13 @@ const Login = () => {
                                             {
                                                 required: true,
                                                 message:
-                                                    "Please input your username!",
+                                                    'Please input your username!',
                                             },
                                             {
                                                 min: 5,
                                                 max: 20,
                                                 message:
-                                                    "Min length must be at least 5 & Max length must be at least 20!",
+                                                    'Min length must be at least 5 & Max length must be at least 20!',
                                             },
                                         ]}
                                         className={styles.form__item}
@@ -88,13 +88,13 @@ const Login = () => {
                                             {
                                                 required: true,
                                                 message:
-                                                    "Please input your password!",
+                                                    'Please input your password!',
                                             },
                                             {
                                                 min: 5,
                                                 max: 20,
                                                 message:
-                                                    "Min length must be at least 6 & Max length must be at least 20!",
+                                                    'Min length must be at least 6 & Max length must be at least 20!',
                                             },
                                         ]}
                                         className={styles.form__item}
@@ -120,7 +120,7 @@ const Login = () => {
                 </Layout>
             )}
         </>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

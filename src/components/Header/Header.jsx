@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, Row, Col } from "antd";
-import styles from "./Header.module.css";
+import React from 'react'
+import { Button, Row, Col } from 'antd'
+import styles from './Header.module.css'
 
 const HeaderComponent = ({ onClick }) => {
     return (
@@ -21,6 +21,6 @@ const HeaderComponent = ({ onClick }) => {
                 </Col>
             </Row>
         </>
-    );
-};
-export default HeaderComponent;
+    )
+}
+export default HeaderComponent
