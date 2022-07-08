@@ -4,10 +4,12 @@ import Header from '../Header/Header'
 import ModalAddTodo from '../Modals/ModalAddTodo'
 import ModalEditTodo from '../Modals/ModalEditTodo'
 import Todo from '../Todo/Todo'
-import { Col, Row, Button, Layout, Modal, Spin } from 'antd'
+import { Col, Row, Layout, Modal, Spin } from 'antd'
 import { openNotification } from '../../utils/notice.utils'
 import { AuthContext } from '../store/auth-context'
 import styles from './Home.module.css'
+import ButtonEditTodo from '../Button/ButtonEditTodo'
+import ButtonDeleteTodo from '../Button/ButtonDeleteTodo'
 
 const { Content } = Layout
 const results = []
@@ -20,12 +22,11 @@ const Home = () => {
     const [listTodo, setListTodo] = useState(results)
     const [editTodo, setEditTodo] = useState(null)
     const [isModalEdit, setIsModalEdit] = useState(false)
-    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [isModalAdd, setIsModalAdd] = useState(false)
     const [changeValueSearch, setChangeValueSearch] = useState(null)
+
     const contextLogout = useContext(AuthContext)
-
     const checkRole = localStorage.getItem('ROLE')
-
     const columns = [
         {
             title: 'Title',
@@ -52,32 +53,12 @@ const Home = () => {
             render: (record) => {
                 return (
                     <div className={styles.btn__all}>
-                        {checkRole === '1' ? (
-                            <Button
-                                type="primary"
-                                className={styles.btn__edit}
-                                onClick={() => handleEditTodo(record)}
-                            >
-                                EDIT
-                            </Button>
-                        ) : (
-                            <Button disabled className={styles.btn__edit}>
-                                Edit
-                            </Button>
-                        )}
-                        {checkRole === '1' ? (
-                            <Button
-                                className={styles.btn__delete}
-                                danger
-                                onClick={() => handleDeleteTodo(record.key)}
-                            >
-                                DELETE
-                            </Button>
-                        ) : (
-                            <Button disabled className={styles.btn__delete}>
-                                Delete
-                            </Button>
-                        )}
+                        <ButtonEditTodo
+                            onClick={() => handleEditTodo(record)}
+                        />
+                        <ButtonDeleteTodo
+                            onClick={() => handleDeleteTodo(record.key)}
+                        />
                     </div>
                 )
             },
@@ -98,16 +79,13 @@ const Home = () => {
         if (storageTodoList) {
             setListTodo(JSON.parse(storageTodoList))
         }
-    }, [])
-
-    useEffect(() => {
         setTimeout(() => {
             setLoading(false)
         }, 1200)
     }, [])
 
-    const showModal = () => {
-        setIsModalVisible(true)
+    const showModalAdd = () => {
+        setIsModalAdd(true)
     }
 
     const showModalEdit = () => {
@@ -119,7 +97,7 @@ const Home = () => {
     }
 
     const handleCancel = () => {
-        setIsModalVisible(false)
+        setIsModalAdd(false)
     }
 
     const changeTitleAndDescription = (changeValueSearch) => {
@@ -150,7 +128,7 @@ const Home = () => {
             localStorage.setItem(TODO_APP_STORAGE_KEY, JSON.stringify(newData))
             return newData
         })
-        setIsModalVisible(false)
+        setIsModalAdd(false)
         openNotification('success', 'ADD-TODO SUCCESSFUL!')
     }
 
@@ -237,7 +215,7 @@ const Home = () => {
                                 <Todo
                                     columns={columns}
                                     results={listTodo}
-                                    onClick={showModal}
+                                    onClick={showModalAdd}
                                     rowSelection={rowSelection}
                                     deleteTodoRow={handleDeleteRow}
                                     selectedRowKeys={selectedRowKeys}
@@ -254,9 +232,9 @@ const Home = () => {
                 </Layout>
             )}
             {/* Modal Add */}
-            {isModalVisible && (
+            {isModalAdd && (
                 <ModalAddTodo
-                    visible={isModalVisible}
+                    visible={isModalAdd}
                     okCancel={handleCancel}
                     onOk={handleSubmitForm}
                 />

@@ -5,6 +5,7 @@ import TableTodo from './TableTodo'
 import ButtonAddTodo from '../Button/ButtonAddTodo'
 import { Row, Col, Skeleton, Button } from 'antd'
 import styles from './Todo.module.css'
+import ButtonDeleteRowTodo from '../Button/ButtonDeleteRowTable'
 
 const Todo = ({
     results,
@@ -16,7 +17,6 @@ const Todo = ({
     hasSelected,
     changeTitleAndDescription,
     changeValueSearch,
-    checkRole,
 }) => {
     let dataSearch
 
@@ -55,18 +55,10 @@ const Todo = ({
                 </Col>
             </Row>
             <Row>
-                {checkRole === '1' ? (
-                    <Button
-                        style={{ width: '92px' }}
-                        type="danger"
-                        onClick={() => deleteTodoRow(selectedRowKeys)}
-                        disabled={!hasSelected}
-                    >
-                        DELETE
-                    </Button>
-                ) : (
-                    []
-                )}
+                <ButtonDeleteRowTodo
+                    disabled={!hasSelected}
+                    onClick={() => deleteTodoRow(selectedRowKeys)}
+                />
                 <Skeleton className={styles.todo} active loading={loading}>
                     <TableTodo
                         columns={columns}
