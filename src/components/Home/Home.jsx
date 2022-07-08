@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from 'react'
 import moment from 'moment'
-import HeaderComponent from '../Header/Header'
-import ModalAddTodoComponent from '../Modals/ModalAddTodo'
+import Header from '../Header/Header'
+import ModalAddTodo from '../Modals/ModalAddTodo'
 import ModalEditTodo from '../Modals/ModalEditTodo'
-import Todo from './Todo'
+import Todo from '../Todo/Todo'
 import { Col, Row, Button, Layout, Modal, Spin } from 'antd'
 import { openNotification } from '../../utils/notice.utils'
-import styles from './Home.module.css'
 import { AuthContext } from '../store/auth-context'
+import styles from './Home.module.css'
 
 const { Content } = Layout
 const results = []
@@ -230,7 +230,7 @@ const Home = () => {
                 />
             ) : (
                 <Layout className={styles.layout}>
-                    <HeaderComponent onClick={onLogout} />
+                    <Header onClick={onLogout} />
                     <Content>
                         <Row>
                             <Col span={12} offset={6}>
@@ -255,7 +255,7 @@ const Home = () => {
             )}
             {/* Modal Add */}
             {isModalVisible && (
-                <ModalAddTodoComponent
+                <ModalAddTodo
                     visible={isModalVisible}
                     okCancel={handleCancel}
                     onOk={handleSubmitForm}

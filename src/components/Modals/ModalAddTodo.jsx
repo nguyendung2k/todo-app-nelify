@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, Form, Input, Button } from 'antd'
 import styles from './ModalAddTodo.module.css'
 
-const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
+const ModalAddTodo = ({ visible, okCancel, onOk }) => {
     const [form] = Form.useForm()
     const handleResetForm = () => {
         form.resetFields()
@@ -79,4 +79,4 @@ const ModalAddTodoComponent = ({ visible, okCancel, onOk }) => {
     )
 }
 
-export default ModalAddTodoComponent
+export default ModalAddTodo

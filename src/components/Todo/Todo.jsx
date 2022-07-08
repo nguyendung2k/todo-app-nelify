@@ -1,6 +1,6 @@
 /* eslint-disable no-lone-blocks */
 import React, { useState, useEffect } from 'react'
-import SearchTodo from './SearchTodo'
+import SearchTodo from '../Search/SearchTodo'
 import TableTodo from './TableTodo'
 import ButtonAddTodo from '../Button/ButtonAddTodo'
 import { Row, Col, Skeleton, Button } from 'antd'
