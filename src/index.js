@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { AuthContextProvider } from './components/store/auth-context'
+import { AuthContextProvider } from './components/store/context/auth-context'
 import 'antd/dist/antd.min.css'
 import Layout from './components/Layout/Layout'
 

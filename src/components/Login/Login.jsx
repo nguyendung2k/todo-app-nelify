@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Form, Input, Button, Row, Col } from 'antd'
 import { Layout, Spin } from 'antd'
-import { AuthContext } from '../store/auth-context'
+import { AuthContext } from '../store/context/auth-context'
 import styles from './Login.module.css'
 import { containsWhitespace } from '../../utils/string.utils'
 import { openNotification } from '../../utils/notice.utils'

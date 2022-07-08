@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { ACCOUNTS } from './constant'
-import { openNotification } from '../../utils/notice.utils'
+import { ACCOUNTS } from '../constant'
+import { openNotification } from '../../../utils/notice.utils'
 
 const AuthContext = createContext()
 

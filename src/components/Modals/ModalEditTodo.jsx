@@ -20,11 +20,6 @@ const ModalEditTodo = ({ visible, okCancel, onOk, editTodo, setEditTodo }) => {
     useEffect(() => {
         form.setFieldsValue({
             title: editTodo.title,
-        })
-    })
-
-    useEffect(() => {
-        form.setFieldsValue({
             description: editTodo.description,
         })
     })
