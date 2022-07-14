@@ -17,6 +17,7 @@ const Todo = ({
     hasSelected,
     changeTitleAndDescription,
     changeValueSearch,
+    checkRole,
 }) => {
     let dataSearch
 
@@ -64,6 +65,7 @@ const Todo = ({
                         columns={columns}
                         results={dataSearch}
                         rowSelection={rowSelection}
+                        checkRole={checkRole}
                     />
                 </Skeleton>
             </Row>

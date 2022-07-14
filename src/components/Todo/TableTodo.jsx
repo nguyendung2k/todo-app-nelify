@@ -8,7 +8,7 @@ const TableTodo = ({ columns, results, rowSelection, checkRole }) => {
             className={styles.table}
             dataSource={results}
             columns={columns}
-            rowSelection={checkRole !== '1' ? rowSelection : null}
+            rowSelection={checkRole === '2' ? null : rowSelection}
             pagination={{
                 pageSize: 5,
             }}

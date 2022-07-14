@@ -79,7 +79,7 @@ const Login = () => {
                                     >
                                         <Input
                                             className={styles.input__username}
-                                            placeholder="admin"
+                                            placeholder="admin or user123"
                                         />
                                     </Form.Item>
                                     <Form.Item
@@ -102,7 +102,7 @@ const Login = () => {
                                     >
                                         <Input.Password
                                             className={styles.input}
-                                            placeholder="admin"
+                                            placeholder="admin or user123"
                                         />
                                     </Form.Item>
                                     <Form.Item {...tailLayout}>

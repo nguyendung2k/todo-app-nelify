@@ -27,6 +27,7 @@ const Home = () => {
 
     const contextLogout = useContext(AuthContext)
     const checkRole = localStorage.getItem('ROLE')
+    console.log(checkRole)
     const columns = [
         {
             title: 'Title',
@@ -217,12 +218,12 @@ const Home = () => {
                                     results={listTodo}
                                     onClick={showModalAdd}
                                     rowSelection={rowSelection}
-                                    deleteTodoRow={handleDeleteRow}
                                     selectedRowKeys={selectedRowKeys}
                                     hasSelected={selectedRowKeys.length > 0}
                                     changeTitleAndDescription={
                                         changeTitleAndDescription
                                     }
+                                    deleteTodoRow={handleDeleteRow}
                                     changeValueSearch={changeValueSearch}
                                     checkRole={checkRole}
                                 />
