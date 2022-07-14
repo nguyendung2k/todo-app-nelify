@@ -5,8 +5,8 @@ export const ACCOUNTS = [
         role: '1',
     },
     {
-        username: 'dungnb',
-        password: 'dungnb',
+        username: 'user123',
+        password: 'user123',
         role: '2',
     },
 ]
